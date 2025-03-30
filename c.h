@@ -10,6 +10,8 @@
 using namespace std;
 
 void Interface();       //ระบบหน้าจอ อาจจะรวมlogin?
+void Login();
+void Menu();
 void Announce(string ); //Show some text then refresh
 void Loading();
 void Fill();void Fill(string ); //Fill the empty space of each line , and printout
@@ -39,15 +41,49 @@ void Interface(){
     cin.get();
     system("clear");
     Loading();
+    Login();
+}
+
+void Login(){
+    cout<<setfill('-')<<setw(54)<<"\n";
+    Skip(14);
+    Fill("|          -->     Press 1 to Sign In ");
+    Skip(1);
+    Fill("|          -->     Press 2 to Sign Up ");
+    Skip();
+
+    int ch;
+    cin>>ch;
+    switch (ch) {
+        case 1 :Announce("|                   Successful!");
+                Menu();
+                break;
+        case 2 :Announce("|                   Successful!");
+                Menu();
+                break;
+        default:system("clear");
+                Login();
+                break;
+    }
+}
+
+void Menu(){
+    cout<<setfill('-')<<setw(54)<<"\n";
+    Skip(3);
+    Fill("|                     Skibidi");
+    Skip(3);
+    cout<<"|"<<setfill('-')<<setw(53)<<"|\n";
+    Screen_height--,Skip();
 }
 
 void Announce(string word){
     cout<<setfill('-')<<setw(54)<<"\n";
     Skip(15);
-    cout<<Fill(word);
+    Fill(word);
     Skip(14);
-    cout<<"|"<<Fill("                Enter to continue");
+    Fill("|                Enter to continue");
     Skip();
+    cin.get();
     cin.get();
     system("clear");
 }
@@ -55,40 +91,41 @@ void Announce(string word){
 void Loading(){
     int i;
     string load=" ";
-    for (i=0;i<14;i++){
+    for (i=0;i<18;i++){
     cout<<setfill('-')<<setw(54)<<"\n";
     Skip(14);
-    cout<<"|"<<Fill("                     Loading...");
-    cout<<"|"<<Fill("                _________________");
-    cout<<"|"<<Fill("               |")<<"\033[42m"<<Count(load+">")<<"\033[0m",Fill();
-    cout<<"|"<<Fill("                ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾");
+    Fill("|                     Loading...");
+    Fill("|                __________________");
+    cout<<"|"<<Count("               |")<<"\033[42m"<<Count(load)<<"\033[0m",Fill();
+    Fill("|                ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾\t\t    ");
     Skip();
     load+=" ";
-    sleep(1);
+    usleep(100000);
     system("clear");
     }
 }
 
 void Fill(string word){
-    int remain=Screen_Width-word.size();
+    int remain=Screen_Width-word.size()+1;
     cout<<word<<setfill(' ')<<setw(remain)<<"|"<<endl;
     Screen_height--;
 }
 void Fill(){
     cout<<setfill(' ')<<setw(Screen_Width)<<"|"<<endl;
+    Screen_Width=52;
     Screen_height--;
 }
 
 void Skip(){
     while (Screen_height>0) {
-        cout<<"|",Fill();
+        Fill("|");
     }
     cout<<setfill('-')<<setw(54)<<"\n";
     Screen_height=31;
 }
 void Skip(int n){
     for (n;n>0;n--){
-        cout<<"|",Fill();
+        Fill("|");
     }
 }
 
